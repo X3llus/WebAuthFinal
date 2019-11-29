@@ -30,6 +30,3 @@ const pool = new Pool({
   database: "webauthfinal",
   connectionLimit: 100
 });
-
-//----------------------------------------------------------------------------//
-// add a user to the database
