@@ -17,19 +17,32 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.post('/makeAccount')
+app.post('/makeProfile', (req, res) => {
+  let toSend = makeProfile(req.body)
+  .then(toSend => {
+    res.json(toSend);
+  })
+  .catch(err => {
+    res.end(`"success": false, "data": "a fatal error has occured"`);
+  });
+});
 
-app.listen(69420, () => console.log("listening on port 69420"));
 //----------------------------------------------------------------------------//
 // database connection
-// const {
-//   Pool
-// } = require('pg')
-// const pool = new Pool({
-//   user: "backend",
-//   password: null,
-//   host: "localhost",
-//   port: 5432,
-//   database: "webauthfinal",
-//   connectionLimit: 100
-// });
+const {
+  Pool
+} = require('pg')
+const pool = new Pool({
+  user: "backend",
+  password: null,
+  host: "localhost",
+  port: 5432,
+  database: "webauthfinal",
+  connectionLimit: 100
+});
+
+//
+
+async function makeProfile(data) {
+
+}
