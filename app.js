@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------//
 // encryption library things
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
+// const bcrypt = require('bcrypt');
+// const saltRounds = 12;
 
 //----------------------------------------------------------------------------//
 // code to listen for requests
