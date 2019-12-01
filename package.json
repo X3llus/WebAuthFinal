@@ -1,0 +1,22 @@
+{
+  "name": "webauthfinal",
+  "version": "1.0.0",
+  "description": "node packages needed",
+  "main": "app.js",
+  "scripts": {
+    "test": "webA"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/X3llus/WebAuthFinal.git"
+  },
+  "author": "Braden (X3llus)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/X3llus/WebAuthFinal/issues"
+  },
+  "homepage": "https://github.com/X3llus/WebAuthFinal#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0"
+  }
+}
