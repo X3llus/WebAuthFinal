@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------//
 // encryption library things
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
+// const bcrypt = require('bcrypt');
+// const saltRounds = 12;
 
 //----------------------------------------------------------------------------//
 // code to listen for requests
@@ -17,16 +17,19 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.post('/makeAccount')
+
+app.listen(69420, () => console.log("listening on port 69420"));
 //----------------------------------------------------------------------------//
 // database connection
-const {
-  Pool
-} = require('pg')
-const pool = new Pool({
-  user: "backend",
-  password: null,
-  host: "localhost",
-  port: 5432,
-  database: "webauthfinal",
-  connectionLimit: 100
-});
+// const {
+//   Pool
+// } = require('pg')
+// const pool = new Pool({
+//   user: "backend",
+//   password: null,
+//   host: "localhost",
+//   port: 5432,
+//   database: "webauthfinal",
+//   connectionLimit: 100
+// });
