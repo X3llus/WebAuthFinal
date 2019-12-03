@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------//
 // encryption library things
-const bcrypt = require('bcrypt');
-const saltRounds = 12;
+// const bcrypt = require('bcrypt');
+// const saltRounds = 12;
 
 //----------------------------------------------------------------------------//
 // code to listen for requests
@@ -17,6 +17,16 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.post('/makeProfile', (req, res) => {
+  let toSend = makeProfile(req.body)
+  .then(toSend => {
+    res.json(toSend);
+  })
+  .catch(err => {
+    res.end(`"success": false, "data": "a fatal error has occured"`);
+  });
+});
+
 //----------------------------------------------------------------------------//
 // database connection
 const {
@@ -30,3 +40,9 @@ const pool = new Pool({
   database: "webauthfinal",
   connectionLimit: 100
 });
+
+//
+
+async function makeProfile(data) {
+
+}
