@@ -1,0 +1,36 @@
+*{
+  font-size: 12px;
+}
+
+body{
+  background-color: #eff0f0;
+}
+
+nav ul{
+  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans-serif;
+  display: flex;
+  background-color: #464655;
+  justify-content: flex-start;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li a{
+  font-size: 2em;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: #92b4b5;
+}
+
+li a:hover, .current{
+  background-color: #92b4b5;
+  color: #464655;
+}
+
+nav ul li{
+  width: 100%;
+}
