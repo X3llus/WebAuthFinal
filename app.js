@@ -1,10 +1,16 @@
-//----------------------------------------------------------------------------//
-// encryption library things
-// const bcrypt = require('bcrypt');
-// const saltRounds = 12;
+/*
+Encryption
+includes bcrypt for password encryption
+and sets the salt to 12
+*/
+const bcrypt = require('bcrypt');
+const saltRounds = 12;
 
-//----------------------------------------------------------------------------//
-// code to listen for requests
+/*
+Express and body parsing
+set up the express and parser
+and handle all app requests
+*/
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
@@ -17,32 +23,80 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.post('/makeProfile', (req, res) => {
-  let toSend = makeProfile(req.body)
-  .then(toSend => {
-    res.json(toSend);
-  })
-  .catch(err => {
-    res.end(`"success": false, "data": "a fatal error has occured"`);
-  });
+app.post('/makeUser', (req, res) => {
+  let toSend = makeUser(req.body)
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      console.log(err);
+      res.end(`"success": false, "data": "a fatal error has occured"`);
+    });
 });
 
-//----------------------------------------------------------------------------//
-// database connection
+app.listen(80, () => console.log("listening on port 80"));
+
+/*
+PostgreSQL connection
+set up the database settings
+*/
 const {
   Pool
 } = require('pg')
 const pool = new Pool({
   user: "backend",
-  password: null,
+  password: "!QAZ2wsx",
   host: "localhost",
   port: 5432,
   database: "webauthfinal",
-  connectionLimit: 100
+  connectionLimit: 10013
 });
 
-//
+/*
+Async funtion to add a user to the database
+gets the users information from the request data
+hashes the password and adds to database
+*/
+async function makeUser(data) {
 
-async function makeProfile(data) {
+  try {
+    console.log(data);
+    _email = data.email;
+    _fName = data.fName;
+    _lName = data.lName;
+    _pass = data.pass;
+
+    const client = await pool.connect();
+
+    // Encryptes the password
+    var salt = await bcrypt.genSaltSync(saltRounds);
+    var _hash = await bcrypt.hash(_pass, salt);
+
+    // Addes the user to the database using SQL
+    await client.query({
+      text: "insert into users (fName, lName, email, password) values ($1, $2, $3, $4)",
+      values: [_fName, _lName, _email, _hash]
+    });
+
+    client.release()
+
+    return JSON.stringify({
+      success: true,
+      data: "User Created"
+    });
+  } catch (e) {
+    console.log(e);
+    return {
+      success: false,
+      data: "Email is already in use"
+    };
+  }
+}
+
+async function signIn(data) {
+
+}
+
+async function getDestinations() {
 
 }
