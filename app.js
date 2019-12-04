@@ -34,6 +34,17 @@ app.post('/makeUser', (req, res) => {
     });
 });
 
+app.post('/signIn', (req, res) => {
+  let toSend = signIn(req.body)
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      console.log(err);
+      res.send(`"success": false, "data": "a fatal error has occured"`);
+    });
+});
+
 app.post('/getDestinations', (req, res) => {
   let toSend = getDestinations()
     .then(toSend => {
@@ -71,7 +82,6 @@ hashes the password and adds to database
 async function makeUser(data) {
 
   try {
-    console.log(data);
     _email = data.email;
     _fName = data.fName;
     _lName = data.lName;
@@ -104,8 +114,42 @@ async function makeUser(data) {
   }
 }
 
+/*
+Async function to sign in the user
+gets the users hashed password
+uses bcrypt to compare the passwords
+*/
 async function signIn(data) {
 
+  try {
+    _email = data.email;
+    _pass = data.pass;
+
+    const client = await pool.connect();
+
+    var _hash = await client.query({
+      text: "select password from users where email = $1",
+      values: [_email]
+    });
+
+    const auth = bcrypt.compare(_pass, _hash);
+
+    client.release();
+
+    if (auth) {
+      return {
+        success: true,
+        data: "Authentication Successful"
+      };
+    } else {
+      throw "Authentication Failed";
+    }
+  } catch(err) {
+    return {
+      success: false,
+      data: err
+    };
+  }
 }
 
 /*
