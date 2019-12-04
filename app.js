@@ -108,6 +108,12 @@ async function signIn(data) {
 
 }
 
+/*
+Async function to get the destinations
+queries all columns and rows from destination table
+makes it into a json
+and sends it back
+*/
 async function getDestinations() {
   const client = await pool.connect();
 
