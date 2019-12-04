@@ -1,0 +1,109 @@
+*{
+  font-size: 1vh;
+  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans-serif;
+}
+
+h2{
+  text-align: center;
+  font-size: 8em;
+  color: #2b3572;
+  margin-top: 0;
+}
+
+h3{
+  text-align: center;
+  font-size: 4em;
+  color: #2b3572;
+}
+
+p{
+  text-align: center;
+  font-size: 3em;
+  color: #6096ba;
+}
+
+body{
+  width: 100%;
+  background-color: #e7ecef;
+}
+
+/* CSS targeting the banner */
+h1{
+  color: #464655;
+  font-size: 10em;
+  position: absolute;
+  top: 3.09em;
+  left: 0.2em;
+}
+
+.horizontalBar{
+  margin-bottom: 2vh;
+  position:relative;
+  border: 5px solid #464655;
+  width: 100vw;
+}
+
+.flexContainer{
+  display: flex;
+  justify-content: space-around;
+}
+
+.flexContainer li{
+  width: 80vh;
+  font-size: 3em;
+  color: #6096ba;
+}
+
+.flexContainer img{
+  border: 5px solid #464655;
+  width: 200vw;
+  height: 50vh;
+  margin-bottom: 5vh;
+}
+
+.flexContainer p{
+  margin: 3vh;
+}
+
+.container{
+  position: relative;
+  margin-top: 6vh;
+  width: 100%;
+}
+
+/* CSS targeting the nav bar and sub-elements */
+nav{
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 300;
+}
+
+nav ul{
+  display: flex;
+  background-color: #464655;
+  justify-content: flex-start;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li a{
+  padding-top: 3vh;
+  padding-bottom: 1vh;
+  font-size: 3em;
+  height: 6vh;
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: #92b4b5;
+}
+
+li a:hover, .current{
+  background-color: #92b4b5;
+  color: #464655;
+}
+
+nav ul li{
+  width: 100%;
+}
