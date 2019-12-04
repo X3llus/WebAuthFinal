@@ -34,6 +34,17 @@ app.post('/makeUser', (req, res) => {
     });
 });
 
+app.post('/getDestinations', (req, res) => {
+  let toSend = getDestinations()
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      console.log(err);
+      res.end(`"success": false, "data": "a fatal error has occured"`);
+    })
+})
+
 app.listen(80, () => console.log("listening on port 80"));
 
 /*
@@ -80,10 +91,10 @@ async function makeUser(data) {
 
     client.release()
 
-    return JSON.stringify({
+    return {
       success: true,
       data: "User Created"
-    });
+    };
   } catch (e) {
     console.log(e);
     return {
@@ -98,5 +109,49 @@ async function signIn(data) {
 }
 
 async function getDestinations() {
+  const client = await pool.connect();
 
+  // query all listings
+  _results = await client.query({
+    text: "select * from destinations where available > 0"
+  });
+
+  // gets the number of listings to go through
+  var _id = await client.query({
+    text: "select count(id) from destinations where available > 0"
+  });
+
+  // adds each row/listing to a new JSON to be sent back
+  var _count = Number(_id.rows[0]["count"]);
+  let _jString = [];
+  if (_count > 0) {
+    for (let i = 0; i != _count; i++) {
+      _jString.push({
+        id: _results.rows[i]["id"],
+        title: _results.rows[i]["title"],
+        cost: _results.rows[i]["cost"],
+        location: _results.rows[i]["location"],
+        description: _results.rows[i]["description"],
+        startday: _results.rows[i]["startday"],
+        endday: _results.rows[i]["endday"],
+        available: _results.rows[i]["available"],
+        total: _results.rows[i]["total"]
+      });
+    }
+
+    client.release()
+
+    return {
+      success: true,
+      data: _jString
+    };
+  } else {
+
+    client.release()
+
+    return {
+      success: false,
+      data: "no listings available"
+    };
+  }
 }
