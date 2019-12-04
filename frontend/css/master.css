@@ -1,13 +1,41 @@
 *{
-  font-size: 12px;
+  font-size: 1vh;
+  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans-serif;
+}
+
+h2{
+  font-size: 8em;
 }
 
 body{
+  width: 100%;
   background-color: #eff0f0;
 }
 
+/* CSS targeting the banner */
+.container {
+  position: relative;
+  margin-top: 6vh;
+  color: #464655;
+  width: 100%;
+}
+
+.container div h1{
+  font-size: 10em;
+  position: absolute;
+  top: 3.09em;
+  left: 0.2em;
+}
+
+
+/* CSS targeting the nav bar and sub-elements */
+nav{
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+
 nav ul{
-  font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans-serif;
   display: flex;
   background-color: #464655;
   justify-content: flex-start;
@@ -17,9 +45,10 @@ nav ul{
 }
 
 li a{
-  font-size: 2em;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+  font-size: 3em;
+  height: 6vh;
   display: block;
   text-decoration: none;
   text-align: center;
