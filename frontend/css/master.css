@@ -69,6 +69,10 @@ h1{
   width: 100%;
 }
 
+.container img {
+  border-bottom: 1em solid #464655;
+}
+
 /* CSS targeting the nav bar and sub-elements */
 nav{
   position: fixed;
