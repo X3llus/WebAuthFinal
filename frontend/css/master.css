@@ -27,59 +27,9 @@ body{
 }
 
 /* CSS targeting the banner */
-<<<<<<< HEAD
-=======
 h1{
   color: #464655;
-  font-size: 10em;
-  position: absolute;
-  top: 3.09em;
-  left: 0.2em;
 }
-
-#blankList{
-  list-style: none;
-}
-
-#contactFlex{
-  margin-top: 10vh;
-}
-
-#contactFlex div{
-  border: 10px solid #6096ba;
-  width: 30vw;
-  padding: 10px;
-}
-
-#contactHead{
-  padding: 1vh;
-  margin: 0;
-  text-align: left;
-  width: 29vw;
-  color: #e7ecef;
-  background-color: #464655;
-}
-
-#contactImage{
-  width: 28vw;
-  margin-left: 0.75vw;
-  margin-right: 1vw;
-  margin-top: 3vw;
-  margin-bottom: 1vw;
-}
-
-.horizontalBar{
-  margin-bottom: 2vh;
-  position:relative;
-  border: 5px solid #464655;
-}
-
-.flexContainer{
-  display: flex;
-  justify-content: space-between;
-}
->>>>>>> 72c2eb53c39a72f53d80a0378559b5ffe42e9dc1
-
 
 /* CSS targeting the nav bar and sub-elements */
 nav{
