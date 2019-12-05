@@ -15,7 +15,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
-app.use(express.static(__dirname + '/Frontend', {
+app.use(express.static(__dirname + '/frontend', {
   extensions: ['html']
 }));
 app.use(bodyParser.urlencoded({
@@ -48,6 +48,7 @@ app.post('/signIn', (req, res) => {
 app.post('/getDestinations', (req, res) => {
   let toSend = getDestinations()
     .then(toSend => {
+      console.log(toSend);
       res.json(toSend);
     })
     .catch(err => {
@@ -163,7 +164,7 @@ async function getDestinations() {
 
   // query all listings
   _results = await client.query({
-    text: "select * from destinations where available > 0"
+    text: "select location, description, imageurl from destinations where available > 0"
   });
 
   // gets the number of listings to go through
@@ -177,15 +178,9 @@ async function getDestinations() {
   if (_count > 0) {
     for (let i = 0; i != _count; i++) {
       _jString.push({
-        id: _results.rows[i]["id"],
-        title: _results.rows[i]["title"],
-        cost: _results.rows[i]["cost"],
         location: _results.rows[i]["location"],
         description: _results.rows[i]["description"],
-        startday: _results.rows[i]["startday"],
-        endday: _results.rows[i]["endday"],
-        available: _results.rows[i]["available"],
-        total: _results.rows[i]["total"]
+        imageurl: _results.rows[i]["imageurl"]
       });
     }
 
