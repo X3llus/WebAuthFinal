@@ -72,7 +72,7 @@ const pool = new Pool({
   host: "localhost",
   port: 5432,
   database: "webauthfinal",
-  connectionLimit: 10013
+  connectionLimit: 100
 });
 
 /*
@@ -164,7 +164,7 @@ async function getDestinations() {
 
   // query all listings
   _results = await client.query({
-    text: "select location, description, imageurl from destinations where available > 0"
+    text: "select location, description, imageurl from destinations where available > 0 order by location"
   });
 
   // gets the number of listings to go through
