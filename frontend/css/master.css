@@ -3,6 +3,11 @@
   font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans-serif;
 }
 
+h1{
+  font-size: 10em;
+  color: #464655;
+}
+
 h2{
   text-align: center;
   font-size: 8em;
@@ -26,12 +31,11 @@ body{
   background-color: #e7ecef;
 }
 
-/* CSS targeting the banner */
-h1{
-  color: #464655;
+/* CSS targeting the nav bar and sub-elements */
+header {
+  height: 10vh;
 }
 
-/* CSS targeting the nav bar and sub-elements */
 nav{
   position: fixed;
   top: 0;

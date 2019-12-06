@@ -1,0 +1,38 @@
+h1 {
+  text-align: center;
+}
+
+form {
+  border-radius: 2em;
+  border: 0.5em solid #65afff;
+  width: 30%;
+  height: 50em;
+  margin-left: 35%;
+  padding-top: 2em;
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+main a {
+  font-size: 3em;
+  display: block;
+  text-align: center;
+}
+
+label {
+  font-size: 3em;
+}
+
+.input input {
+  font-size: 2em;
+}
+
+.input {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 5%;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/signup.css">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index">Home</a></li>
+          <li><a href="order">Order</a></li>
+          <li><a href="contact">Contact</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="profile" class="current">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Sign Up</h1>
+      <form>
+        <div class="input">
+          <label for="email">Email: </label>
+          <input type="text" name="email" id="email" required>
+        </div>
+        <div class="input">
+          <label for="fname">First Name: </label>
+          <input type="text" name="fname" id="fname" required>
+        </div>
+        <div class="input">
+          <label for="lname">Last Name: </label>
+          <input type="text" name="lname" id="lname" required>
+        </div>
+        <div class="input">
+          <label for="pass">Password: </label>
+          <input type="password" name="pass" id="pass" required>
+        </div>
+        <div class="input">
+          <label for="passC">Confirm Password: </label>
+          <input type="password" name="passC" id="passC" required>
+        </div>
+        <input type="button" class="input" value="Sign Up" onclick="signUp()">
+      </form>
+      <a href="/login">Already have an account?</a>
+    </main>
+  </body>
+</html>
+
+<script src="scripts/profile.js" charset="utf-8"></script>

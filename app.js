@@ -23,9 +23,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.post('/makeUser', (req, res) => {
+app.post('/signUp', (req, res) => {
+  console.log(req.body);
   let toSend = makeUser(req.body)
     .then(toSend => {
+      console.log(toSend);
       res.json(toSend);
     })
     .catch(err => {
@@ -54,10 +56,21 @@ app.post('/getDestinations', (req, res) => {
     .catch(err => {
       console.log(err);
       res.end(`"success": false, "data": "a fatal error has occured"`);
-    })
-})
+    });
+});
 
-app.listen(80, () => console.log("listening on port 80"));
+app.post('/getLocation', (req, res) => {
+  console.log(req.body);
+  let toSend = getLocation(req.body)
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      res.end('"success:" false, "data": "a fatal error has occured"');
+    });
+});
+
+app.listen(8080, () => console.log("listening on port 80"));
 
 /*
 PostgreSQL connection
@@ -82,13 +95,17 @@ hashes the password and adds to database
 */
 async function makeUser(data) {
 
+  console.log("one");
+
   try {
     _email = data.email;
-    _fName = data.fName;
-    _lName = data.lName;
+    _fName = data.fname;
+    _lName = data.lname;
     _pass = data.pass;
 
     const client = await pool.connect();
+
+    console.log("two");
 
     // Encryptes the password
     var salt = await bcrypt.genSaltSync(saltRounds);
@@ -100,7 +117,11 @@ async function makeUser(data) {
       values: [_fName, _lName, _email, _hash]
     });
 
-    client.release()
+    console.log("three");
+
+    client.release();
+
+    console.log("four")
 
     return {
       success: true,
@@ -199,4 +220,43 @@ async function getDestinations() {
       data: "no listings available"
     };
   }
+}
+
+async function getLocation(data) {
+
+  const _location = data.location;
+
+  const client = await pool.connect();
+
+  var _results = await client.query({
+    text: "select id, title, cost, startday, endday, available from destinations where location = $1 and available > 0",
+    values: [_location]
+  });
+
+  let _jString = [];
+  for (let i = 0; i < _results.rows.length; i++) {
+    const it = _results.rows[i]
+    _jString.push({
+      id: it["id"],
+      title: it["title"],
+      cost: it["cost"],
+      start: it["startday"],
+      end: it["endday"],
+      available: it["available"]
+    });
+  }
+
+  client.release();
+
+  return {
+    success: true,
+    data: _jString
+  };
+}
+
+function order(data) {
+
+  const client = pool.connect();
+
+
 }

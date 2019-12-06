@@ -31,7 +31,7 @@ function listListings(_listings) {
     node.setAttribute("class", "destination");
     node.setAttribute("id", _listings[i].location);
     node.setAttribute("type", "button");
-    node.setAttribute("onclick", "viewLocation(this.location)")
+    node.setAttribute("onclick", "viewLocation(this.id)")
     nodeImage = document.createElement(`img`);
     nodeImage.setAttribute("src", "../images/" + _listings[i].imageurl);
     nodeImage.setAttribute("width", "200");
@@ -43,7 +43,7 @@ function listListings(_listings) {
     node.appendChild(nodeImage);
     node.appendChild(nodeTitle);
     node.appendChild(nodeDesc);
-    document.getElementById("allDestinations").appendChild(node)
+    document.getElementById("allDestinations").appendChild(node);
   }
 }
 
