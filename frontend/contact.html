@@ -5,18 +5,63 @@
     <title></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/flex.css">
   </head>
   <body>
 
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="order.html">Order</a></li>
-        <li><a href="contact.html" class="current">Contact</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="profile.html">Profile</a></li>
-      </ul>
-    </nav>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index">Home</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="order">Order</a></li>
+          <li><a href="profile">Profile</a></li>
+          <li><a href="contact" class="current">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+  
+    <div class="flexContainer" id = "contactFlex">
+      <div>
+        <h3 id = "contactHead">Main Office</h3>
+        <ul id = "blankList">
+          <li>Barrie Ontario</li>
+          <li>101 Georgian Drive</li>
+          <li>L4M 6Z5</li>
+        </ul>
+
+        <ul id = "blankList">
+          <li>Monday - Friday: 9:00am - 5:00pm EST</li>
+          <li>Saturday: CLOSED</li>
+          <li>Sunday: 8:00am - 1:00pm</li>
+        </ul>
+
+        <img src="images/office.jpg" alt="Office" id = "contactImage">
+      </div>
+
+      <div>
+        <h3 id = "contactHead">Contact Information</h3>
+        <ul id = "blankList">
+          <li>Email: travelmexico@gmail.com</li>
+          <li>Phone: (905)-412-3389</li>
+          <li>Fax: (905)-412-3389</li>
+          <li>Mail: 101 Georgian Drive, Barrie ON, L4M 6Z5</li>
+        </ul>
+        <img src="images/contact.jpg" alt="Contact" id = "contactImage">
+      </div>
+
+      <div>
+        <h3 id = "contactHead">Tech Support</h3>
+        <ul id = "blankList">
+          <li>For Any Issues With Booking or the Site</li>
+          <li>Email: travelmexico@gmail.com</li>
+          <li>Phone: (905)-412-3389</li>
+          <li>Fax: (905)-412-3389</li>
+        </ul>
+        <img src="images/techSupport.png" alt="Contact" id = "contactImage">
+      </div>
+    </div>
 
   </body>
 </html>

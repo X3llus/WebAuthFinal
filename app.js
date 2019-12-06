@@ -15,7 +15,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
-app.use(express.static(__dirname + '/Frontend', {
+app.use(express.static(__dirname + '/frontend', {
   extensions: ['html']
 }));
 app.use(bodyParser.urlencoded({
@@ -23,9 +23,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.post('/makeUser', (req, res) => {
+app.post('/signUp', (req, res) => {
+  console.log(req.body);
   let toSend = makeUser(req.body)
     .then(toSend => {
+      console.log(toSend);
       res.json(toSend);
     })
     .catch(err => {
@@ -34,7 +36,8 @@ app.post('/makeUser', (req, res) => {
     });
 });
 
-app.post('/signIn', (req, res) => {
+app.post('/confirm', (req, res) => {
+  console.log(req.body);
   let toSend = signIn(req.body)
     .then(toSend => {
       res.json(toSend);
@@ -46,6 +49,7 @@ app.post('/signIn', (req, res) => {
 });
 
 app.post('/getDestinations', (req, res) => {
+  console.log(req.body);
   let toSend = getDestinations()
     .then(toSend => {
       res.json(toSend);
@@ -53,10 +57,46 @@ app.post('/getDestinations', (req, res) => {
     .catch(err => {
       console.log(err);
       res.end(`"success": false, "data": "a fatal error has occured"`);
-    })
-})
+    });
+});
 
-app.listen(80, () => console.log("listening on port 80"));
+app.post('/getLocation', (req, res) => {
+  console.log(req.body);
+  let toSend = getLocation(req.body)
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      console.log(err);
+      res.end('"success:" false, "data": "a fatal error has occured"');
+    });
+});
+
+app.post('/makeOrders', (req, res) => {
+  console.log(req.body);
+  let toSend = order(req.body)
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      console.log(err);
+      res.end('"success:" false, "data": "a fatal error has occured"');
+    });
+});
+
+app.post('/getProfile', (req, res) => {
+  console.log(req.body);
+  let toSend = getProfile(req.body)
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      console.log(err);
+      res.end('"success:" false, "data": "a fatal error has occured"');
+    });
+});
+
+app.listen(8080, () => console.log("listening on port 80"));
 
 /*
 PostgreSQL connection
@@ -64,14 +104,14 @@ set up the database settings
 */
 const {
   Pool
-} = require('pg')
+} = require('pg');
 const pool = new Pool({
   user: "backend",
   password: "!QAZ2wsx",
   host: "localhost",
   port: 5432,
   database: "webauthfinal",
-  connectionLimit: 10013
+  connectionLimit: 100
 });
 
 /*
@@ -81,17 +121,21 @@ hashes the password and adds to database
 */
 async function makeUser(data) {
 
+  console.log("one");
+
   try {
     _email = data.email;
-    _fName = data.fName;
-    _lName = data.lName;
+    _fName = data.fname;
+    _lName = data.lname;
     _pass = data.pass;
 
     const client = await pool.connect();
 
+    console.log("two");
+
     // Encryptes the password
     var salt = await bcrypt.genSaltSync(saltRounds);
-    var _hash = await bcrypt.hash(_pass, salt);
+    var _hash = await bcrypt.hashSync(_pass, salt);
 
     // Addes the user to the database using SQL
     await client.query({
@@ -99,7 +143,11 @@ async function makeUser(data) {
       values: [_fName, _lName, _email, _hash]
     });
 
-    client.release()
+    console.log("three");
+
+    client.release();
+
+    console.log("four")
 
     return {
       success: true,
@@ -132,7 +180,7 @@ async function signIn(data) {
       values: [_email]
     });
 
-    const auth = bcrypt.compare(_pass, _hash);
+    const auth = await bcrypt.compareSync(_pass, _hash.rows[0]["password"]);
 
     client.release();
 
@@ -163,7 +211,7 @@ async function getDestinations() {
 
   // query all listings
   _results = await client.query({
-    text: "select * from destinations where available > 0"
+    text: "select location, description, imageurl from destinations where available > 0 order by location"
   });
 
   // gets the number of listings to go through
@@ -177,19 +225,13 @@ async function getDestinations() {
   if (_count > 0) {
     for (let i = 0; i != _count; i++) {
       _jString.push({
-        id: _results.rows[i]["id"],
-        title: _results.rows[i]["title"],
-        cost: _results.rows[i]["cost"],
         location: _results.rows[i]["location"],
         description: _results.rows[i]["description"],
-        startday: _results.rows[i]["startday"],
-        endday: _results.rows[i]["endday"],
-        available: _results.rows[i]["available"],
-        total: _results.rows[i]["total"]
+        imageurl: _results.rows[i]["imageurl"]
       });
     }
 
-    client.release()
+    client.release();
 
     return {
       success: true,
@@ -197,11 +239,133 @@ async function getDestinations() {
     };
   } else {
 
-    client.release()
+    client.release();
 
     return {
       success: false,
       data: "no listings available"
+    };
+  }
+}
+
+/*
+Async function to get all resorts at a location
+*/
+async function getLocation(data) {
+
+  const _location = data.location;
+
+  const client = await pool.connect();
+
+  var _results = await client.query({
+    text: "select id, title, cost, startday, endday, available from destinations where location = $1 and available > 0",
+    values: [_location]
+  });
+
+  let _jString = [];
+  for (let i = 0; i < _results.rows.length; i++) {
+    const it = _results.rows[i]
+    _jString.push({
+      id: it["id"],
+      title: it["title"],
+      cost: it["cost"],
+      start: it["startday"],
+      end: it["endday"],
+      available: it["available"]
+    });
+  }
+
+  client.release();
+
+  return {
+    success: true,
+    data: _jString
+  };
+}
+
+/*
+Async function to add an order
+*/
+async function order(data) {
+
+  _email = data.email;
+  _orders = data.orders;
+
+  const client = await pool.connect();
+
+  for (var i = 0; i < _orders.length; i++) {
+
+    await client.query({
+      text: "insert into userdestinations (email, locationid, numof) values ($1, $2, $3)",
+      values: [_email, _orders[i].id, _orders[i].numOf]
+    });
+
+    await client.query({
+      text: "update destinations set available = available - $1 where id = $2",
+      values: [_orders[i].numOf, _orders[i].id]
+    });
+  }
+
+  client.release();
+
+  return {
+    success: true,
+    data: "Ordered"
+  };
+}
+
+/*
+Async function to get the profile data
+gets the users name and all orders on their profile
+*/
+async function getProfile(data) {
+
+  try {
+
+    _email = data.email;
+
+    const client = await pool.connect();
+
+    var _profile = await client.query({
+      text: "select fname, lname from users where email = $1",
+      values: [_email]
+    });
+
+    var _orders = await client.query({
+      text: "select title, cost, startday, endday, numof from userdestinations, destinations where email = $1 and locationid = destinations.id",
+      values: [_email]
+    });
+
+    let _jString = [];
+
+    for (var i = 0; i < _orders.rows.length; i++) {
+      let it = _orders.rows[i];
+
+      _jString.push({
+        title: it["title"],
+        cost: it["cost"],
+        start: it["startday"],
+        end: it["endday"],
+        num: it["numof"]
+      });
+    }
+
+    client.release();
+
+    return {
+      success: true,
+      data: {
+        fname: _profile.rows[0]["fname"],
+        lname: _profile.rows[0]["lname"],
+        orders: _jString
+      }
+    };
+
+  } catch (e) {
+
+    return {
+      success: false,
+      data: "Email not found"
     };
   }
 }

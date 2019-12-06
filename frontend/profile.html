@@ -5,18 +5,28 @@
     <title></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/profile.css">
   </head>
-  <body>
+  <body onload="checkSignIn()">
 
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="order.html">Order</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="profile.html" class="current">Profile</a></li>
-      </ul>
-    </nav>
-
+    <header>
+      <nav>
+        <ul>
+          <li><a href="index">Home</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="order">Order</a></li>
+          <li><a href="profile" class="current">Profile</a></li>
+          <li><a href="contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div id="user">
+        <h1 id="name"></h1>
+      </div>
+      <div id="locations"></div>
+    </main>
   </body>
 </html>
+
+<script src="scripts/profile.js" charset="utf-8"></script>

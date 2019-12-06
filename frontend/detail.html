@@ -2,30 +2,31 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Destinations</title>
+    <title>Find a Destination</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/master.css">
-    <link rel="stylesheet" href="css/destinations.css">
+    <link rel="stylesheet" href="css/detail.css">
   </head>
-  <body onload="getDestinations()">
+  <body onload="getLocation()">
+
     <header>
       <nav>
         <ul>
           <li><a href="index">Home</a></li>
-          <li><a href="about">About</a></li>
           <li><a href="order" class="current">Order</a></li>
-          <li><a href="profile">Profile</a></li>
           <li><a href="contact">Contact</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="profile">Profile</a></li>
         </ul>
       </nav>
-      <h1>Destinations:</h1>
     </header>
     <main>
-      <div id="allDestinations">
-      </div>
-    </main>
+      <h1 id="destination"></h1>
+      <form id="locations">
 
+      </form>
+    </main>
   </body>
 </html>
 
-<script src="scripts/order.js" charset="utf-8"></script>
+<script src="scripts/detail.js" charset="utf-8"></script>
