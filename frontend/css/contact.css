@@ -1,14 +1,14 @@
-#blankList{
+ul{
   list-style: none;
   padding: 0;
 }
 
-#contactFlex div{
+.flexContainer div{
   border: 10px solid #6096ba;
   padding: 10px;
 }
 
-#contactHead{
+.flexContainer h3{
   padding: 1vh;
   margin: 0;
   text-align: left;
@@ -16,7 +16,7 @@
   background-color: #464655;
 }
 
-#contactImage{
+.flexContainer img{
   position: relative;
   bottom: 0;
   width: 28vw;
