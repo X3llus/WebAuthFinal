@@ -4,8 +4,6 @@ function getLocation() {
 
   document.getElementById("destination").appendChild(document.createTextNode(_location));
 
-  console.log("test");
-
   data = JSON.stringify({
     location: _location
   });
@@ -43,7 +41,6 @@ function makePage(data) {
   /*
   I really despised making this part but it works and that makes me happy
   */
-
   for (let i = 0; i < _len; i++) {
     const it = data[i];
 
@@ -83,11 +80,46 @@ function makePage(data) {
   let submit = document.createElement(`input`);
   submit.setAttribute("type", "button");
   submit.setAttribute("value", "Purchase");
-  submit.setAttribute("onpress", "order()");
+  submit.setAttribute("onclick", "order()");
   document.getElementById("locations").appendChild(submit);
-
 }
 
 function order() {
-  
+  let _destinations = document.querySelectorAll("input[type=number]");
+  let _orders = [];
+
+  if (sessionStorage.getItem("email") == null) {
+    alert("Not signed in");
+  } else {
+    let _email = sessionStorage.getItem("email");
+
+    for (var i = 0; i < _destinations.length; i++) {
+      let it = _destinations[i];
+      if (it.value > 0) {
+        _orders.push({
+          id: it.id
+        });
+      }
+    }
+
+    data = JSON.stringify({
+      email: _email,
+      orders: _orders
+    });
+
+    url = "makeOrders"
+    xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json");
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var thing = JSON.parse(xhr.responseText);
+        makePage(thing.data);
+        console.log(thing);
+      }
+    }
+    xhr.send(data)
+  }
 }

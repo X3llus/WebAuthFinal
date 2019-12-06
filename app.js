@@ -37,6 +37,7 @@ app.post('/signUp', (req, res) => {
 });
 
 app.post('/signIn', (req, res) => {
+  console.log(req.body);
   let toSend = signIn(req.body)
     .then(toSend => {
       res.json(toSend);
@@ -48,9 +49,9 @@ app.post('/signIn', (req, res) => {
 });
 
 app.post('/getDestinations', (req, res) => {
+  console.log(req.body);
   let toSend = getDestinations()
     .then(toSend => {
-      console.log(toSend);
       res.json(toSend);
     })
     .catch(err => {
@@ -66,9 +67,22 @@ app.post('/getLocation', (req, res) => {
       res.json(toSend);
     })
     .catch(err => {
+      console.log(err);
       res.end('"success:" false, "data": "a fatal error has occured"');
     });
 });
+
+app.post('/makeOrders', (req, res) => {
+  console.log(req.body);
+  let toSend = order(req.body)
+    .then(toSend => {
+      res.json(toSend);
+    })
+    .catch(err => {
+      console.log(err);
+      res.end('"success:" false, "data": "a fatal error has occured"');
+    })
+})
 
 app.listen(8080, () => console.log("listening on port 80"));
 
@@ -205,7 +219,7 @@ async function getDestinations() {
       });
     }
 
-    client.release()
+    client.release();
 
     return {
       success: true,
@@ -213,7 +227,7 @@ async function getDestinations() {
     };
   } else {
 
-    client.release()
+    client.release();
 
     return {
       success: false,
@@ -222,6 +236,9 @@ async function getDestinations() {
   }
 }
 
+/*
+Async function to get all resorts at a location
+*/
 async function getLocation(data) {
 
   const _location = data.location;
@@ -258,5 +275,7 @@ function order(data) {
 
   const client = pool.connect();
 
+  client.release();
 
+  return null;
 }

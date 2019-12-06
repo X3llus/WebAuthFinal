@@ -17,7 +17,6 @@ function getDestinations() {
 }
 
 function listListings(_listings) {
-  console.log("run");
   var _numList = _listings.length;
 
   let node;
