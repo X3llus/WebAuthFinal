@@ -27,7 +27,6 @@ function signUp() {
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json");
     xhr.onreadystatechange = function() { //Call a function when the state changes.
-      console.log(xhr.responseText);
       if (xhr.readyState == 4 && xhr.status == 200) {
         console.log("returned");
         var thing = JSON.parse(xhr.responseText);

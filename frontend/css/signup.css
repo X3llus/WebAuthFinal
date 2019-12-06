@@ -22,17 +22,21 @@ main a {
 }
 
 label {
-  font-size: 3em;
-}
-
-.input input {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .input {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
   width: 90%;
   margin-left: 5%;
+}
+
+input.input {
+  font-size: 2em;
+  height: 2em;
+}
+
+div.input {
+  font-size: 2em;
 }

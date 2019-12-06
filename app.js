@@ -36,7 +36,7 @@ app.post('/signUp', (req, res) => {
     });
 });
 
-app.post('/signIn', (req, res) => {
+app.post('/confirm', (req, res) => {
   console.log(req.body);
   let toSend = signIn(req.body)
     .then(toSend => {
@@ -135,7 +135,7 @@ async function makeUser(data) {
 
     // Encryptes the password
     var salt = await bcrypt.genSaltSync(saltRounds);
-    var _hash = await bcrypt.hash(_pass, salt);
+    var _hash = await bcrypt.hashSync(_pass, salt);
 
     // Addes the user to the database using SQL
     await client.query({
@@ -180,7 +180,7 @@ async function signIn(data) {
       values: [_email]
     });
 
-    const auth = bcrypt.compare(_pass, _hash);
+    const auth = await bcrypt.compareSync(_pass, _hash.rows[0]["password"]);
 
     client.release();
 
