@@ -7,5 +7,7 @@ I used express to serve static html web pages without the .html at the end
 - Cleaner CSS/HTML
 - Better database structure
 - Actual Authentication
+- Cancel Purchase
+- More Destinations
 
 Current Link:
