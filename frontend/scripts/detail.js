@@ -31,8 +31,6 @@ function makePage(data) {
   let nRight;
   let nTitle;
   let nCost;
-  let nStart = new Date();
-  let nEnd = new Date();
   let nDate;
   let nAvailable;
   let nLabel;
@@ -117,8 +115,13 @@ function order() {
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         var thing = JSON.parse(xhr.responseText);
-        makePage(thing.data);
-        console.log(thing);
+        if (thing.success == true) {
+          alert("Purchase Successful");
+        } else {
+          alert("Purchase Error");
+        }
+
+        window.location.href = "/order"
       }
     }
     xhr.send(data)

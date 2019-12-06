@@ -1,0 +1,27 @@
+h1 {
+  margin-left: 1em;
+}
+
+h2 {
+  text-align: left;
+  font-size: 4em;
+}
+
+h3, h4, h5 {
+  font-size: 2em;
+  padding-left: 1em;
+  margin-top: 1em;
+}
+
+#locations {
+  margin-left: 17.5%;
+  width: 60%;
+}
+
+.location {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 0.2em solid #2b3572;
+  margin-bottom: 1em;
+}

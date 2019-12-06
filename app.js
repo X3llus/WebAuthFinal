@@ -81,8 +81,20 @@ app.post('/makeOrders', (req, res) => {
     .catch(err => {
       console.log(err);
       res.end('"success:" false, "data": "a fatal error has occured"');
+    });
+});
+
+app.post('/getProfile', (req, res) => {
+  console.log(req.body);
+  let toSend = getProfile(req.body)
+    .then(toSend => {
+      res.json(toSend);
     })
-})
+    .catch(err => {
+      console.log(err);
+      res.end('"success:" false, "data": "a fatal error has occured"');
+    });
+});
 
 app.listen(8080, () => console.log("listening on port 80"));
 
@@ -281,8 +293,6 @@ async function order(data) {
 
   const client = await pool.connect();
 
-
-
   for (var i = 0; i < _orders.length; i++) {
 
     await client.query({
@@ -302,4 +312,60 @@ async function order(data) {
     success: true,
     data: "Ordered"
   };
+}
+
+/*
+Async function to get the profile data
+gets the users name and all orders on their profile
+*/
+async function getProfile(data) {
+
+  try {
+
+    _email = data.email;
+
+    const client = await pool.connect();
+
+    var _profile = await client.query({
+      text: "select fname, lname from users where email = $1",
+      values: [_email]
+    });
+
+    var _orders = await client.query({
+      text: "select title, cost, startday, endday, numof from userdestinations, destinations where email = $1 and locationid = destinations.id",
+      values: [_email]
+    });
+
+    let _jString = [];
+
+    for (var i = 0; i < _orders.rows.length; i++) {
+      let it = _orders.rows[i];
+
+      _jString.push({
+        title: it["title"],
+        cost: it["cost"],
+        start: it["startday"],
+        end: it["endday"],
+        num: it["numof"]
+      });
+    }
+
+    client.release();
+
+    return {
+      success: true,
+      data: {
+        fname: _profile.rows[0]["fname"],
+        lname: _profile.rows[0]["lname"],
+        orders: _jString
+      }
+    };
+
+  } catch (e) {
+
+    return {
+      success: false,
+      data: "Email not found"
+    };
+  }
 }
