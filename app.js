@@ -92,7 +92,7 @@ set up the database settings
 */
 const {
   Pool
-} = require('pg')
+} = require('pg');
 const pool = new Pool({
   user: "backend",
   password: "!QAZ2wsx",
@@ -271,11 +271,35 @@ async function getLocation(data) {
   };
 }
 
-function order(data) {
+/*
+Async function to add an order
+*/
+async function order(data) {
 
-  const client = pool.connect();
+  _email = data.email;
+  _orders = data.orders;
+
+  const client = await pool.connect();
+
+
+
+  for (var i = 0; i < _orders.length; i++) {
+
+    await client.query({
+      text: "insert into userdestinations (email, locationid, numof) values ($1, $2, $3)",
+      values: [_email, _orders[i].id, _orders[i].numOf]
+    });
+
+    await client.query({
+      text: "update destinations set available = available - $1 where id = $2",
+      values: [_orders[i].numOf, _orders[i].id]
+    });
+  }
 
   client.release();
 
-  return null;
+  return {
+    success: true,
+    data: "Ordered"
+  };
 }

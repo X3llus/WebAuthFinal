@@ -97,7 +97,8 @@ function order() {
       let it = _destinations[i];
       if (it.value > 0) {
         _orders.push({
-          id: it.id
+          id: it.id,
+          numOf: it.value
         });
       }
     }
