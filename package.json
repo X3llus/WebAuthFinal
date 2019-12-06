@@ -4,7 +4,7 @@
   "description": "node packages needed",
   "main": "app.js",
   "scripts": {
-    "test": "webA"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
