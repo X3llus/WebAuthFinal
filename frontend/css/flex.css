@@ -1,0 +1,38 @@
+h1{
+  color: #464655;
+}
+
+.horizontalBar{
+  margin-bottom: 2vh;
+  position:relative;
+  border: 5px solid #464655;
+}
+
+.flexContainer{
+  display: flex;
+  justify-content: space-around;
+}
+
+.flexContainer li{
+  font-size: 3em;
+  color: #6096ba;
+}
+
+.flexContainer img{
+  border: 5px solid #464655;
+  height: 50vh;
+  margin-bottom: 5vh;
+}
+
+.flexContainer p{
+  margin: 3vh;
+}
+
+.container{
+  position: relative;
+  width: 100%;
+}
+
+.container img {
+  border-bottom: 1em solid #464655;
+}

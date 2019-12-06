@@ -1,0 +1,25 @@
+#blankList{
+  list-style: none;
+  padding: 0;
+}
+
+#contactFlex div{
+  border: 10px solid #6096ba;
+  padding: 10px;
+}
+
+#contactHead{
+  padding: 1vh;
+  margin: 0;
+  text-align: left;
+  color: #e7ecef;
+  background-color: #464655;
+}
+
+#contactImage{
+  position: relative;
+  bottom: 0;
+  width: 28vw;
+  margin-left: 0.75vw;
+  margin-right: 1vw;
+}
