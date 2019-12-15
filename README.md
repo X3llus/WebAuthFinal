@@ -11,6 +11,6 @@ Improvements to be Made
 - Cancel Purchase
 - More Destinations
 
-Current Link: Server is being brought home will be up by end of day
+Current Link: https://0a943bde.ngrok.io
 -
 Currently trying to get heroku to work but this link will be updated if it changes
