@@ -11,6 +11,6 @@ Improvements to be Made
 - Cancel Purchase
 - More Destinations
 
-Current Link: https://0a943bde.ngrok.io
+Current Link: https://5ff1f06d.ngrok.io
 -
 Currently trying to get heroku to work but this link will be updated if it changes
